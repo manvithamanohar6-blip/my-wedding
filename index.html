@@ -237,12 +237,12 @@ section::after, section::before {
     </style>
 </head>
 <body>
-
-    <div class="fixed bottom-6 right-6 z-[200]">
-        <div id="musicTooltip" class="absolute bottom-20 right-0 bg-slate-900 border border-sky-400 text-white text-xs px-4 py-2 rounded-lg whitespace-nowrap shadow-lg opacity-100 transition-opacity duration-300 font-semibold">
-            Click to unmute music 🎶
+    <!-- Main Content -->
+    <div id="mainContent">
+        <div id="audioTooltip" class="fixed bottom-24 right-8 bg-slate-900 border border-sky-400 text-white text-xs px-4 py-2 rounded-lg whitespace-nowrap shadow-lg opacity-100 transition-opacity duration-300 font-semibold z-40">
+            ← Click for audio 🎶
         </div>
-        <button onclick="toggleMusic()" id="musicBtn" class="bg-sky-500 text-white p-4 rounded-full shadow-2xl pulse flex items-center justify-center">
+        <button onclick="toggleMusic()" id="musicBtn" class="bg-sky-500 text-white p-4 rounded-full shadow-2xl pulse flex items-center justify-center fixed bottom-8 right-8 z-50">
             <span id="musicIcon">🎵</span>
         </button>
         <audio id="bgMusic" loop muted>
@@ -260,6 +260,13 @@ section::after, section::before {
             <div><span id="hours" class="text-4xl font-bold block text-sky-200">00</span><span class="text-[10px] uppercase opacity-70">Hrs</span></div>
             <div class="w-px h-10 bg-white/20 self-center"></div>
             <div><span id="mins" class="text-4xl font-bold block text-sky-200">00</span><span class="text-[10px] uppercase opacity-70">Mins</span></div>
+        </div>
+        
+        <!-- Scroll Down Arrow -->
+        <div class="mt-16 animate-bounce">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mx-auto text-sky-300 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
         </div>
     </section>
 
@@ -300,44 +307,193 @@ And so, with hearts full of gratitude and love,we step into our forever — toge
     <section class="snow-theme py-24 w-full border-t border-white/5">
         <div class="max-w-5xl mx-auto px-6 w-full text-center">
             <h2 class="text-3xl mb-12 traditional-title text-sky-200 uppercase tracking-widest">The Celebration</h2>
-            <div class="grid md:grid-cols-1 gap-0 rounded-[40px] overflow-hidden shadow-2xl glass-card">
-                
-                    
-                    
-                    <div class="w-12 h-px bg-sky-300/30 mb-4"></div>
-              <div class="p-12 flex flex-col items-center justify-center">
-                    <span class="text-1xl font-bold text-sky-400 tracking-widest block mb-4 uppercase">May 03, 2026</span>
-                    <h3 class="text-3xl font-bold text-white mb-4">Mangalya Muhurtham</h3>
-                    <div class="w-12 h-px bg-sky-300/30 mb-4"></div>
-                    <p class="text-slate-300 text-l font-light italic">Indian Cultural Center of Utah</p>
-                <p class="text-slate-300 text-sm font-light italic">1142 South Jordan Pkwy, South Jordan, UT 84095</p>
-                <h3 class="text-3xl font-bold text-white mb-4">10:39 AM</h3>
-                
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Cocktail Party Event -->
+                <div class="glass-card p-12 rounded-[40px] shadow-2xl w-full">
+                    <div class="flex items-center justify-between mb-8">
+                     <div class="flex justify-center"><h3 class="text-3xl font-bold text-middle text-white">Cheers before the Vows</h3></div>
+                       
+                        <span class="text-4xl">🍹</span>
+                    </div>
+                    <div class="space-y-6 text-left">
+                        <div class="flex items-start gap-4">
+                            <span class="text-2xl text-sky-400 flex-shrink-0">📅</span>
+                            <div>
+                                <p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-1">Date & Time</p>
+                                <p class="text-white text-lg font-semibold">April 25, 2026</p>
+                                <p class="text-sky-300 text-sm font-semibold">TBD</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <span class="text-2xl text-sky-400 flex-shrink-0">📍</span>
+                            <div>
+                                <p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-1">Venue</p>
+                                <p class="text-white text-lg font-semibold">TBD</p>
+                                <p class="text-[9px] text-slate-400 mt-1">Utah</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="https://www.google.com/maps/search/Utah/@40.2338,-111.0934,10z" target="_blank" class="mt-6 inline-block text-sky-400 hover:text-sky-300 text-[10px] uppercase tracking-widest font-bold border-t border-white/10 pt-4">
+                        View on Google Maps →
+                    </a>
                 </div>
-                    
-                </div>
                 
+                <!-- Muhurtham Event -->
+                <div class="glass-card p-12 rounded-[40px] shadow-2xl w-full">
+                    <div class="flex items-center justify-between mb-8">
+                        <h3 class="text-3xl font-bold text-white">Mangalya Muhurtham</h3>
+                        <span class="text-4xl">💍</span>
+                    </div>
+                    <div class="space-y-6 text-left">
+                        <div class="flex items-start gap-4">
+                            <span class="text-2xl text-pink-400 flex-shrink-0">📅</span>
+                            <div>
+                                <p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-1">Date & Time</p>
+                                <p class="text-white text-lg font-semibold">May 3, 2026</p>
+                                <p class="text-pink-300 text-sm font-semibold">10:39 AM</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <span class="text-2xl text-pink-400 flex-shrink-0">📍</span>
+                            <div>
+                                <p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-1">Venue</p>
+                                <p class="text-white text-lg font-semibold">Indian Cultural Center of Utah</p>
+                                <p class="text-[9px] text-slate-400 mt-1">1142 South Jordan Pkwy, South Jordan, UT 84095</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="https://www.google.com/maps/place/Indian+Cultural+Center+of+Utah/@40.5583,-111.9239,15z/data=!4m6!3m5!1s0x8755463a3d6dc85d:0x123abc456" target="_blank" class="mt-6 inline-block text-pink-400 hover:text-pink-300 text-[10px] uppercase tracking-widest font-bold border-t border-white/10 pt-4">
+                        View on Google Maps →
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
 <section id="find-invite" class="snow-theme py-24 w-full border-t border-white/5">
-    <div lass="max-w-md w-full mx-auto px-6 text-center">
+    <div class="max-w-4xl w-full mx-auto px-6">
+      <!-- Guest Registration Form -->
       <div class="glass-card p-10 border border-white/10 shadow-2xl rounded-[40px] bg-white/5 backdrop-blur-xl">
-        <h2 class="text-3xl mb-4 traditional-title text-white">Find Your Invite</h2>
-    
+        <h2 class="text-3xl mb-8 traditional-title text-white">Register Your Attendance</h2>
+        <p class="text-slate-300 text-xs uppercase tracking-widest mb-8">Please provide your details</p>
         
-        
-            <input type="text" id="guestName" placeholder="Full Name or Nickname" 
-                   class="w-full bg-slate-900/50 border border-white/10 p-5 rounded-2xl text-center text-xl text-white focus:border-sky-500 outline-none transition-all">
-            <button onclick="mockRSVPSearch()" class="mt-8 w-full bg-sky-600 hover:bg-sky-500 py-5 rounded-2xl font-bold tracking-[0.3em] text-white shadow-lg transition-all active:scale-95 uppercase text-sm">
-                SEARCH GUEST LIST
-            </button>
-        <div class="mt-6 pt-4 border-t border-white/5">
-                    <p class="text-slate-400 text-[10px] uppercase">Name not found? <a href="https://wa.me/13022496766" target="_blank" class="text-sky-300 underline ml-1">Contact Manohar</a></p>
+        <div class="space-y-6">
+            <!-- Guest Name -->
+            <div>
+                <label class="text-[10px] uppercase tracking-widest text-slate-400 block mb-3 font-bold">Your Full Name</label>
+                <input type="text" id="guestName" placeholder="Enter your name" 
+                       class="w-full bg-slate-900/50 border border-white/10 p-4 rounded-2xl text-center text-white focus:border-sky-500 outline-none transition-all">
+            </div>
+
+            <!-- Guest Count -->
+            <div>
+                <label class="text-[10px] uppercase tracking-widest text-slate-400 block mb-3 font-bold">Number of People Coming</label>
+                <select id="guestCount" class="w-full bg-slate-900/50 border border-white/10 p-4 rounded-2xl text-white focus:border-sky-500 outline-none transition-all">
+                    <option value="">Select number of guests</option>
+                    <option value="1">1 Person (Just me)</option>
+                    <option value="2">2 People</option>
+                    <option value="3">3 People</option>
+                    <option value="4">4 People</option>
+                    <option value="5">5 People</option>
+                    <option value="6">6+ People</option>
+                </select>
+            </div>
+
+            <!-- Event Selection -->
+            <div>
+                <label class="text-[10px] uppercase tracking-widest text-slate-400 block mb-4 font-bold">Which events will you attend?</label>
+                <div class="space-y-3">
+                    <label class="flex items-center bg-white/5 p-4 rounded-xl border border-white/5 hover:border-sky-400 cursor-pointer transition-all">
+                        <input type="checkbox" id="cocktail_attend" onchange="toggleCocktailPrefs()" class="mr-3" style="width: 1.5em; height: 1.5em;">
+                        <div>
+                            <span class="text-white font-semibold text-sm">🍹 Cocktail Party</span>
+                            <p class="text-[9px] text-slate-400">April 25, 2026</p>
+                        </div>
+                    </label>
+                    <label class="flex items-center bg-white/5 p-4 rounded-xl border border-white/5 hover:border-pink-400 cursor-pointer transition-all">
+                        <input type="checkbox" id="muhurtham_attend" class="mr-3" style="width: 1.5em; height: 1.5em;">
+                        <div>
+                            <span class="text-white font-semibold text-sm">💍 Mangalya Muhurtham</span>
+                            <p class="text-[9px] text-slate-400">May 3, 2026 • 10:39 AM</p>
+                        </div>
+                    </label>
                 </div>
-            <div id="rsvpLoader" class="hidden mt-6 text-sky-400 italic animate-pulse">Searching our guest list...</div>
+            </div>
+
+            <!-- Cocktail Preferences (Hidden by default) -->
+            <div id="cocktail-prefs-section" class="hidden">
+                <div class="border-t border-white/10 pt-6 mt-6">
+                    <h3 class="text-lg traditional-title text-sky-300 mb-6">🍹 Cocktail Party Preferences</h3>
+                    
+                    <!-- Meal Preference -->
+                    <div class="mb-6">
+                        <label class="text-[10px] uppercase tracking-widest text-slate-400 block mb-3 font-bold">Meal Preference</label>
+                        <div class="flex gap-3">
+                            <label class="flex-1 flex items-center justify-center bg-white/5 p-3 rounded-xl border border-white/5 cursor-pointer hover:border-sky-400 transition-colors">
+                                <input type="radio" name="meal_pref" value="Veg" class="mr-2"> <span class="text-[10px]">Vegetarian</span>
+                            </label>
+                            <label class="flex-1 flex items-center justify-center bg-white/5 p-3 rounded-xl border border-white/5 cursor-pointer hover:border-sky-400 transition-colors">
+                                <input type="radio" name="meal_pref" value="Non-Veg" class="mr-2"> <span class="text-[10px]">Non-Vegetarian</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Bar Preference -->
+                    <div class="mb-6">
+                        <label class="text-[10px] uppercase tracking-widest text-slate-400 block mb-3 font-bold">Beverage Preference</label>
+                        <div class="flex gap-3">
+                            <label class="flex-1 flex items-center justify-center bg-white/5 p-3 rounded-xl border border-white/5 cursor-pointer hover:border-sky-400 transition-colors">
+                                <input type="radio" name="bar_pref" value="Mocktail" class="mr-2"> <span class="text-[10px]">Mocktails</span>
+                            </label>
+                            <label class="flex-1 flex items-center justify-center bg-white/5 p-3 rounded-xl border border-white/5 cursor-pointer hover:border-sky-400 transition-colors">
+                                <input type="radio" name="bar_pref" value="Alcohol" class="mr-2"> <span class="text-[10px]">Alcoholic</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Dance Preference -->
+                    <div class="mb-6">
+                        <label class="text-[10px] uppercase tracking-widest text-slate-400 block mb-3 font-bold">Will you be dancing?</label>
+                        <div class="flex gap-3">
+                            <label class="flex-1 flex items-center justify-center bg-white/5 p-3 rounded-xl border border-white/5 cursor-pointer hover:border-sky-400 transition-colors">
+                                <input type="radio" name="dance_pref" value="Yes" onchange="toggleDanceSongField()" class="mr-2"> <span class="text-[10px]">Yes!</span>
+                            </label>
+                            <label class="flex-1 flex items-center justify-center bg-white/5 p-3 rounded-xl border border-white/5 cursor-pointer hover:border-sky-400 transition-colors">
+                                <input type="radio" name="dance_pref" value="Maybe" onchange="toggleDanceSongField()" class="mr-2"> <span class="text-[10px]">Maybe</span>
+                            </label>
+                            <label class="flex-1 flex items-center justify-center bg-white/5 p-3 rounded-xl border border-white/5 cursor-pointer hover:border-sky-400 transition-colors">
+                                <input type="radio" name="dance_pref" value="No" onchange="toggleDanceSongField()" class="mr-2"> <span class="text-[10px]">No</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Dance Song Request (Hidden - shown only if Yes) -->
+                    <div id="dance-song-request-field" class="hidden mb-6">
+                        <label class="text-[10px] uppercase tracking-widest text-slate-400 block mb-2 font-bold">Dance Song Request <span class="text-red-400">*</span></label>
+                        <input type="text" id="cocktail_dance_song" placeholder="Song Name & Artist" 
+                               class="w-full bg-white/5 border border-white/10 p-3 rounded-xl text-white text-xs outline-none focus:border-sky-500">
+                        <p class="text-[8px] text-slate-500 mt-1">Required if dancing</p>
+                    </div>
+
+                    <!-- DJ Song Request (Optional) -->
+                    <div>
+                        <label class="text-[10px] uppercase tracking-widest text-slate-400 block mb-2 font-bold">DJ Song Request</label>
+                        <input type="text" id="cocktail_dj_song" placeholder="Song Name & Artist (Optional)" 
+                               class="w-full bg-white/5 border border-white/10 p-3 rounded-xl text-white text-xs outline-none focus:border-sky-500">
+                        <p class="text-[8px] text-slate-500 mt-1">Any song you'd like to hear?</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="flex gap-4 mt-8 pt-6 border-t border-white/10">
+                <button onclick="submitRegistration()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 py-4 rounded-2xl font-bold tracking-widest text-white shadow-lg transition-all active:scale-95 uppercase text-sm">
+                    Confirm Registration
+                </button>
+            </div>
         </div>
+      </div>
+
     </div>
 </section>
 
@@ -600,6 +756,12 @@ And so, with hearts full of gratitude and love,we step into our forever — toge
     </section>
 
     <script>
+// Remove password verification - website is directly accessible
+function verifyPassword() {
+    document.getElementById('mainContent').classList.remove('hidden');
+    return true;
+}
+
 let currentGuestRecordId = null;
 
 // Music Logic
@@ -619,12 +781,14 @@ function toggleMusic() {
     }
     
     // Hide tooltip after first click
-    const tooltip = document.getElementById('musicTooltip');
-    tooltip.classList.add('hidden');
+    const tooltip = document.getElementById('audioTooltip');
+    if (tooltip) tooltip.classList.add('hidden');
 }
 
-// Auto-play music on page load (muted to bypass browser restrictions)
+// Show main content on load
 window.addEventListener('load', () => {
+    const mainContent = document.getElementById('mainContent');
+    mainContent.classList.remove('hidden');
     bgMusic.play().catch(err => console.log("Autoplay blocked:", err));
 });
 
@@ -655,13 +819,15 @@ window.addEventListener('pageshow', () => {
 });
 
 // Countdown Logic
-const weddingDate = new Date("May 3, 2026 09:15:00").getTime();
+const weddingDate = new Date("May 3, 2026 10:39:00").getTime();
 setInterval(() => {
     const now = new Date().getTime();
     const gap = weddingDate - now;
-    document.getElementById('days').innerText = Math.floor(gap / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
-    document.getElementById('hours').innerText = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
-    document.getElementById('mins').innerText = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+    if (gap > 0) {
+        document.getElementById('days').innerText = Math.floor(gap / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+        document.getElementById('hours').innerText = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+        document.getElementById('mins').innerText = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+    }
 }, 1000);
 
 // AIRTABLE CONFIG
@@ -669,143 +835,153 @@ const API_TOKEN = "patcEmMS5j2Nl38Ns.85b80e89dd31f83109515a5cbda251e48395a708726
 const BASE_ID = "appBdvXsnpG6RIhfs";
 const TABLE_NAME = "RSVP";
 
-// MAIN SEARCH FUNCTION
-async function mockRSVPSearch() {
-    const input = document.getElementById('guestName').value.trim();
-    const loader = document.getElementById('rsvpLoader');
-    const container = document.getElementById('event-cards-container');
-    const section = document.getElementById('event-display-section');
-    const welcomeText = document.getElementById('welcomeGuest');
-    const prefsSection = document.getElementById('preferences-section');
+// PASSWORD VERIFICATION (removed - website directly accessible)
+function verifyPassword() {
+    // This function is no longer needed
+    return true;
+}
 
-    if (!input) return alert("Please enter a name.");
-    loader.classList.remove('hidden');
-
-    try {
-        const formula = `OR(LOWER({Name})=LOWER("${input}"), LOWER({Nickname})=LOWER("${input}"))`;
-        const res = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}?filterByFormula=${encodeURIComponent(formula)}`, { 
-            headers: { Authorization: `Bearer ${API_TOKEN}` } 
-        });
-        const data = await res.json();
-        loader.classList.add('hidden');
-
-        if (data.records.length > 0) {
-            const guest = data.records[0].fields;
-            currentGuestRecordId = data.records[0].id;
-            const max = guest.Max_Guests || 1;
-            const displayName = guest.Name;
-            
-            welcomeText.innerText = `Hey, ${displayName}!`;
-            
-            // SHOW PREFERENCES SECTION IF INVITED TO COCKTAIL
-            if (guest.Invited_Cocktail) {
-                prefsSection.classList.remove('hidden');
-            } else {
-                prefsSection.classList.add('hidden');
-            }
-            
-            section.classList.remove('hidden');
-            container.innerHTML = "";
-
-            // Generate event RSVP options with event details
-            const rsvpsList = document.getElementById('event-rsvps-list');
-            rsvpsList.innerHTML = "";
-            
-            const eventDetails = {
-                cocktail: {
-                    name: 'Cocktail Party',
-                    emoji: '🍹',
-                    date: 'April 25th',
-                    time: 'TBD',
-                    venue: 'TBD'
-                },
-                haldi: {
-                    name: 'Haldi Ceremony',
-                    emoji: '🌻',
-                    date: 'April 30th',
-                    time: 'TBD',
-                    venue: 'TBD'
-                },
-                pelli: {
-                    name: 'Pelli Ceremony',
-                    emoji: '💒',
-                    date: 'May 1st Morning',
-                    time: '9:30 AM',
-                    venue: 'The Exchange Clubhouse'
-                },
-                muhurtham: {
-                    name: 'Mangalya Muhurtham',
-                    emoji: '💍',
-                    date: 'May 3rd, 2026',
-                    time: '10:39 AM',
-                    venue: 'Indian Cultural Center of Utah'
-                }
-            };
-            
-            const events = [
-                { key: 'Invited_Cocktail', id: 'cocktail' },
-                { key: 'Invited_Haldi', id: 'haldi' },
-                { key: 'Invited_PellikuturuPellikoduku', id: 'pelli' },
-                { key: 'Invited_Muhurtham', id: 'muhurtham' }
-            ];
-
-            events.forEach(event => {
-                if (guest[event.key]) {
-                    const details = eventDetails[event.id];
-                    const rsvpHtml = `
-                    <div class="glass-card p-6 rounded-3xl shadow-lg">
-                        <div class="flex items-center justify-between mb-4">
-                            <h4 class="text-lg traditional-title text-sky-300">${details.name}</h4>
-                            <span class="text-2xl">${details.emoji}</span>
-                        </div>
-                        <div class="space-y-3 mb-4">
-                            <div class="flex items-start gap-3">
-                                <span class="text-sm text-sky-400 mt-0.5">📅</span>
-                                <div>
-                                    <p class="text-[9px] uppercase tracking-widest text-slate-400 font-bold">Date & Time</p>
-                                    <p class="text-white text-sm font-semibold">${details.date}</p>
-                                    ${details.time !== 'TBD' ? `<p class="text-sky-300 text-xs font-semibold mt-0.5">${details.time}</p>` : ''}
-                                </div>
-                            </div>
-                            <div class="flex items-start gap-3">
-                                <span class="text-sm text-sky-400 mt-0.5">📍</span>
-                                <div>
-                                    <p class="text-[9px] uppercase tracking-widest text-slate-400 font-bold">Venue</p>
-                                    <p class="text-white text-sm font-semibold">${details.venue}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="border-t border-white/10 pt-4 space-y-3">
-                            <div>
-                                <label class="text-[9px] uppercase tracking-widest text-slate-400 font-bold block mb-2">Your RSVP</label>
-                                <select id="${event.id}_rsvp" class="w-full bg-slate-900 border border-white/10 p-2 rounded-lg text-white text-[10px] outline-none focus:border-sky-500">
-                                    <option value="Attending">Attending</option>
-                                    <option value="Declined">Declined</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="text-[9px] uppercase tracking-widest text-slate-400 font-bold block mb-2">Guests</label>
-                                <select id="${event.id}_count" class="w-full bg-slate-900 border border-white/10 p-2 rounded-lg text-white text-[10px] outline-none focus:border-sky-500">
-                                    ${Array.from({length: max}, (_, i) => `<option value="${i+1}">${i+1} Guest${i>0?'s':''}</option>`).join('')}
-                                </select>
-                            </div>
-                        </div>
-                    </div>`;
-                    rsvpsList.innerHTML += rsvpHtml;
-                }
-            });
-
-            section.scrollIntoView({ behavior: 'smooth' });
-        } else { 
-            alert("Invite not found. Please try your full name or nickname."); 
-        }
-    } catch (e) { 
-        console.error(e);
-        loader.classList.add('hidden');
+// TOGGLE DANCE SONG FIELD
+function toggleDanceSongField() {
+    const danceYes = document.querySelector('input[name="dance_pref"][value="Yes"]').checked;
+    const danceSongField = document.getElementById('dance-song-request-field');
+    const danceSongInput = document.getElementById('cocktail_dance_song');
+    
+    if (danceYes) {
+        danceSongField.classList.remove('hidden');
+        danceSongInput.focus();
+    } else {
+        danceSongField.classList.add('hidden');
+        danceSongInput.value = '';
     }
 }
 
-// SUBMIT RSVP
+// TOGGLE COCKTAIL PREFERENCES
+function toggleCocktailPrefs() {
+    const cocktailCheckbox = document.getElementById('cocktail_attend');
+    const cocktailPrefs = document.getElementById('cocktail-prefs-section');
+    
+    if (cocktailCheckbox.checked) {
+        cocktailPrefs.classList.remove('hidden');
+    } else {
+        cocktailPrefs.classList.add('hidden');
+        // Clear preferences when unchecked
+        document.querySelectorAll('input[name="meal_pref"]').forEach(el => el.checked = false);
+        document.querySelectorAll('input[name="bar_pref"]').forEach(el => el.checked = false);
+        document.querySelectorAll('input[name="dance_pref"]').forEach(el => el.checked = false);
+    }
+}
+
+// SUBMIT NEW REGISTRATION
+async function submitRegistration() {
+    const name = document.getElementById('guestName').value.trim();
+    const count = document.getElementById('guestCount').value;
+    const cocktailAttend = document.getElementById('cocktail_attend').checked;
+    const muhurthamAttend = document.getElementById('muhurtham_attend').checked;
+    
+    if (!name) return alert('Please enter your name');
+    if (!count) return alert('Please select number of guests');
+    if (!cocktailAttend && !muhurthamAttend) return alert('Please select at least one event');
+    
+    // Validate dance song if dancing
+    if (cocktailAttend) {
+        const danceYes = document.querySelector('input[name="dance_pref"][value="Yes"]');
+        if (danceYes && danceYes.checked) {
+            const danceSong = document.getElementById('cocktail_dance_song').value.trim();
+            if (!danceSong) return alert('Please provide a song name if you\'re planning to dance');
+        }
+    }
+    
+    try {
+        const fields = {
+            "Name": name,
+            "Max_Guests": parseInt(count),
+            "Cocktail_Count": cocktailAttend ? parseInt(count) : 0,
+            "Muhurtham_Count": muhurthamAttend ? parseInt(count) : 0
+        };
+        
+        // Add preferences if cocktail is selected
+        if (cocktailAttend) {
+            fields["Cocktail_RSVP"] = "Attending";
+            
+            const mealPref = document.querySelector('input[name="meal_pref"]:checked');
+            if (mealPref) {
+                if (mealPref.value === "Veg") {
+                    fields["Cocktail_Veg_Count"] = parseInt(count);
+                    fields["Cocktail_NonVeg_Count"] = 0;
+                } else {
+                    fields["Cocktail_NonVeg_Count"] = parseInt(count);
+                    fields["Cocktail_Veg_Count"] = 0;
+                }
+            }
+            
+            const barPref = document.querySelector('input[name="bar_pref"]:checked');
+            if (barPref) {
+                if (barPref.value === "Alcohol") {
+                    fields["Cocktail_Alcohol_Count"] = parseInt(count);
+                    fields["Cocktail_Mocktail_Count"] = 0;
+                } else {
+                    fields["Cocktail_Mocktail_Count"] = parseInt(count);
+                    fields["Cocktail_Alcohol_Count"] = 0;
+                }
+            }
+            
+            const dancePref = document.querySelector('input[name="dance_pref"]:checked');
+            if (dancePref) {
+                fields["Cocktail_Dance"] = dancePref.value;
+            }
+            
+            // Add DJ song request
+            const djSong = document.getElementById('cocktail_dj_song').value.trim();
+            if (djSong) {
+                fields["Cocktail_DJ_Song"] = djSong;
+            }
+            
+            // Add dance song request
+            const danceSong = document.getElementById('cocktail_dance_song').value.trim();
+            if (danceSong) {
+                fields["Cocktail_Dance_Song"] = danceSong;
+            }
+        }
+        
+        // Add Muhurtham RSVP
+        if (muhurthamAttend) {
+            fields["Muhurtham_RSVP"] = "Attending";
+        }
+        
+        const res = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}`, {
+            method: "POST",
+            headers: { 
+                "Authorization": `Bearer ${API_TOKEN}`, 
+                "Content-Type": "application/json" 
+            },
+            body: JSON.stringify({ fields })
+        });
+        
+        if (res.ok) {
+            showRSVPModal();
+            // Reset form
+            document.getElementById('guestName').value = '';
+            document.getElementById('guestCount').value = '';
+            document.getElementById('cocktail_attend').checked = false;
+            document.getElementById('muhurtham_attend').checked = false;
+            document.getElementById('cocktail-prefs-section').classList.add('hidden');
+            document.getElementById('dance-song-request-field').classList.add('hidden');
+            document.querySelectorAll('input[name="meal_pref"]').forEach(el => el.checked = false);
+            document.querySelectorAll('input[name="bar_pref"]').forEach(el => el.checked = false);
+            document.querySelectorAll('input[name="dance_pref"]').forEach(el => el.checked = false);
+            document.getElementById('cocktail_dj_song').value = '';
+            document.getElementById('cocktail_dance_song').value = '';
+        } else {
+            alert('Error registering. Please try again.');
+        }
+    } catch (e) {
+        console.error(e);
+        alert('Error: ' + e.message);
+    }
+}
+
+// LOAD GUEST REGISTRY
 async function submitRSVP() {
     if (!currentGuestRecordId) {
         alert("Please search for your name first.");
@@ -966,12 +1142,64 @@ function toggleDanceSongField() {
 
 // PAGE LOAD
 window.addEventListener('load', () => {
+    // Show main content immediately
+    document.getElementById('mainContent').classList.remove('hidden');
+    
     window.dispatchEvent(new Event('resize'));
     document.querySelectorAll('section').forEach(sec => {
         sec.style.borderBottom = "none";
         sec.style.borderTop = "none";
     });
 });
+
+// LOAD GUEST REGISTRY
+async function loadGuestRegistry() {
+    const registryContainer = document.getElementById('guestRegistryList');
+    
+    try {
+        const res = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}`, { 
+            headers: { Authorization: `Bearer ${API_TOKEN}` } 
+        });
+        const data = await res.json();
+        
+        if (!data.records || data.records.length === 0) {
+            registryContainer.innerHTML = '<p class="text-slate-400 text-sm italic">No confirmations yet...</p>';
+            return;
+        }
+        
+        // Filter guests who have RSVPd (has at least one event RSVP as "Attending")
+        const rsvpdGuests = data.records.filter(record => {
+            const fields = record.fields;
+            return (fields.Cocktail_RSVP === "Attending" || fields.Muhurtham_RSVP === "Attending");
+        });
+        
+        if (rsvpdGuests.length === 0) {
+            registryContainer.innerHTML = '<p class="text-slate-400 text-sm italic">No confirmations yet...</p>';
+            return;
+        }
+        
+        // Display guest names with event counts
+        registryContainer.innerHTML = rsvpdGuests.map(record => {
+            const name = record.fields.Name || 'Guest';
+            const cocktailCount = record.fields.Cocktail_Count || 0;
+            const muhurthamCount = record.fields.Muhurtham_Count || 0;
+            const events = [];
+            if (cocktailCount > 0) events.push(`🍹 ${cocktailCount}`);
+            if (muhurthamCount > 0) events.push(`💍 ${muhurthamCount}`);
+            
+            return `
+                <div class="bg-white/5 p-4 rounded-lg border border-white/10 hover:border-sky-400 transition-colors">
+                    <p class="text-white font-semibold text-sm">${name}</p>
+                    <p class="text-sky-300 text-xs mt-1">${events.join(' • ') || 'No events'}</p>
+                </div>
+            `;
+        }).join('');
+    } catch (e) {
+        console.error('Error loading guest registry:', e);
+        registryContainer.innerHTML = '<p class="text-red-400 text-sm italic">Error loading registry</p>';
+    }
+}
+
 </script>
   <div id="rsvpModal" class="fixed inset-0 z-[1000] flex items-center justify-center hidden px-4">
     <div class="absolute inset-0 bg-[#0f172a]/80 backdrop-blur-md"></div>
@@ -1000,5 +1228,13 @@ window.addEventListener('load', () => {
         </button>
     </div>
 </div>
-</body>
+    <script>
+    // Ensure main content is visible immediately on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        const mainContent = document.getElementById('mainContent');
+        if (mainContent) {
+            mainContent.classList.remove('hidden');
+        }
+    });
+    </script>
 </html>
