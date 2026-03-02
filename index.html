@@ -242,7 +242,7 @@ section::after, section::before {
         <button onclick="toggleMusic()" id="musicBtn" class="bg-sky-500 text-white p-4 rounded-full shadow-2xl pulse flex items-center justify-center">
             <span id="musicIcon">🎵</span>
         </button>
-        <audio id="bgMusic" loop>
+        <audio id="bgMusic" loop muted>
             <source src="https://files.catbox.moe/b4ic42.mp3" type="audio/mpeg">
         </audio>
     </div>
@@ -602,28 +602,36 @@ let currentGuestRecordId = null;
 // Music Logic
 const bgMusic = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicBtn');
+
 function toggleMusic() {
-    if (bgMusic.paused) { bgMusic.play(); document.getElementById('musicIcon').innerText = "⏸"; musicBtn.classList.remove('pulse'); }
-    else { bgMusic.pause(); document.getElementById('musicIcon').innerText = "🎵"; musicBtn.classList.add('pulse'); }
+    if (bgMusic.muted) {
+        bgMusic.muted = false;
+        bgMusic.play();
+        document.getElementById('musicIcon').innerText = "⏸";
+        musicBtn.classList.remove('pulse');
+    } else {
+        bgMusic.muted = true;
+        document.getElementById('musicIcon').innerText = "🎵";
+        musicBtn.classList.add('pulse');
+    }
 }
 
-// Auto-play music on page load
+// Auto-play music on page load (muted to bypass browser restrictions)
 window.addEventListener('load', () => {
-    bgMusic.play();
-    document.getElementById('musicIcon').innerText = "⏸";
-    musicBtn.classList.remove('pulse');
+    bgMusic.play().catch(err => console.log("Autoplay blocked:", err));
 });
 
 // Pause music when tab changes or phone is locked
 document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
         bgMusic.pause();
+        bgMusic.muted = true;
         document.getElementById('musicIcon').innerText = "🎵";
         musicBtn.classList.add('pulse');
     } else {
-        bgMusic.play();
-        document.getElementById('musicIcon').innerText = "⏸";
-        musicBtn.classList.remove('pulse');
+        if (!bgMusic.muted) {
+            bgMusic.play();
+        }
     }
 });
 
@@ -634,9 +642,9 @@ window.addEventListener('pagehide', () => {
 
 // Resume on page show
 window.addEventListener('pageshow', () => {
-    bgMusic.play();
-    document.getElementById('musicIcon').innerText = "⏸";
-    musicBtn.classList.remove('pulse');
+    if (!bgMusic.muted) {
+        bgMusic.play();
+    }
 });
 
 // Countdown Logic
