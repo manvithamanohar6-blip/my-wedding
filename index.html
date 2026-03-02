@@ -607,6 +607,38 @@ function toggleMusic() {
     else { bgMusic.pause(); document.getElementById('musicIcon').innerText = "🎵"; musicBtn.classList.add('pulse'); }
 }
 
+// Auto-play music on page load
+window.addEventListener('load', () => {
+    bgMusic.play();
+    document.getElementById('musicIcon').innerText = "⏸";
+    musicBtn.classList.remove('pulse');
+});
+
+// Pause music when tab changes or phone is locked
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        bgMusic.pause();
+        document.getElementById('musicIcon').innerText = "🎵";
+        musicBtn.classList.add('pulse');
+    } else {
+        bgMusic.play();
+        document.getElementById('musicIcon').innerText = "⏸";
+        musicBtn.classList.remove('pulse');
+    }
+});
+
+// Pause on page hide (phone lock, tab close)
+window.addEventListener('pagehide', () => {
+    bgMusic.pause();
+});
+
+// Resume on page show
+window.addEventListener('pageshow', () => {
+    bgMusic.play();
+    document.getElementById('musicIcon').innerText = "⏸";
+    musicBtn.classList.remove('pulse');
+});
+
 // Countdown Logic
 const weddingDate = new Date("May 3, 2026 09:15:00").getTime();
 setInterval(() => {
