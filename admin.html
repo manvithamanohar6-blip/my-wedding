@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | ManoVitha Kalyana Vaibhogam</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Playfair+Display:ital,wght@0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Poppins', sans-serif; background-color: #0f172a; color: white; margin: 0; overflow-x: hidden; }
+        h1, h2, h3, .traditional-title { font-family: 'Marcellus', serif; }
+        .handwriting { font-family: 'Playfair Display', serif; font-style: italic; }
+
+        /* Background Layers matching index.html */
+        .beach-bg {
+            background: linear-gradient(rgba(15, 23, 42, 0.5), rgba(15, 23, 42, 0.7)), 
+                        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80');
+            background-size: cover; background-attachment: fixed;
+        }
+        .snow-theme {
+            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.95)), 
+                        url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80');
+            background-size: cover; background-attachment: fixed;
+        }
+
+        .glass-card { 
+            background: rgba(255, 255, 255, 0.05); 
+            backdrop-filter: blur(12px); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+        }
+
+        /* Password Overlay Styling */
+        #auth-overlay {
+            position: fixed; inset: 0; z-index: 100;
+            background: radial-gradient(circle at center, #1e293b, #020617);
+            display: flex; align-items: center; justify-content: center;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Custom Checkbox Styling */
+        input[type="checkbox"] {
+            appearance: none; background-color: rgba(255,255,255,0.1);
+            margin: 0; font: inherit; width: 1.5em; height: 1.5em;
+            border: 1px solid rgba(255,255,255,0.2); border-radius: 0.35em;
+            display: grid; place-content: center; cursor: pointer;
+        }
+        input[type="checkbox"]::before {
+            content: ""; width: 0.85em; height: 0.85em; transform: scale(0);
+            transition: 120ms transform ease-in-out; box-shadow: inset 1em 1em #7dd3fc;
+            background-color: CanvasText; clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+        }
+        input[type="checkbox"]:checked::before { transform: scale(1); }
+
+        /* MOBILE RESPONSIVENESS */
+        @media (max-width: 768px) {
+            body { overflow-x: hidden; }
+            .traditional-title { font-size: 1.5rem !important; }
+            
+            /* Statistics cards stack on mobile */
+            .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-4 {
+                grid-template-columns: 1fr 1fr !important;
+                gap: 0.75rem !important;
+            }
+
+            .glass-card.p-8 {
+                padding: 1rem !important;
+            }
+
+            .glass-card.p-8 .text-4xl {
+                font-size: 1.875rem !important;
+            }
+
+            .glass-card.p-8 p {
+                font-size: 0.7rem !important;
+            }
+
+            /* Form improvements for mobile */
+            .grid.grid-cols-1.md\:grid-cols-2 {
+                grid-template-columns: 1fr !important;
+            }
+
+            input[type="text"],
+            select {
+                font-size: 16px !important; /* Prevent iOS zoom */
+                width: 100% !important;
+            }
+
+            /* Checkbox size for mobile */
+            input[type="checkbox"] {
+                width: 1.75em !important;
+                height: 1.75em !important;
+            }
+
+            /* Event invitation checkboxes */
+            .grid.grid-cols-2.md\:grid-cols-4 {
+                grid-template-columns: 1fr 1fr !important;
+                gap: 0.75rem !important;
+            }
+
+            .flex.flex-col.items-center {
+                padding: 0.75rem !important;
+            }
+
+            .flex.flex-col.items-center span {
+                font-size: 0.65rem !important;
+            }
+
+            /* Table improvements */
+            table {
+                font-size: 0.75rem !important;
+            }
+
+            thead th {
+                padding: 0.75rem !important;
+                font-size: 0.65rem !important;
+            }
+
+            tbody td {
+                padding: 0.75rem !important;
+            }
+
+            .text-white.font-bold {
+                font-size: 0.9rem;
+            }
+
+            /* Button improvements */
+            button {
+                font-size: 0.7rem !important;
+                padding: 0.5rem 0.75rem !important;
+            }
+
+            .text-\[10px\] {
+                font-size: 0.7rem !important;
+            }
+
+            .text-\[9px\] {
+                font-size: 0.6rem !important;
+            }
+
+            /* Badge sizing */
+            .px-2.py-1 {
+                padding: 0.35rem 0.5rem !important;
+                font-size: 0.6rem !important;
+            }
+
+            /* Invite sent column center */
+            td .flex.justify-center {
+                padding: 0.5rem !important;
+            }
+
+            /* Main content padding */
+            main {
+                padding: 1rem 0.5rem !important;
+            }
+
+            .max-w-4xl {
+                max-width: 100% !important;
+                padding: 0 0.5rem !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .traditional-title { font-size: 1.25rem !important; }
+            
+            .glass-card.p-10 { padding: 1rem !important; }
+            
+            .text-2xl { font-size: 1.25rem !important; }
+
+            .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-4 {
+                grid-template-columns: 1fr !important;
+                gap: 0.5rem !important;
+            }
+
+            .glass-card.p-8 .text-4xl {
+                font-size: 1.5rem !important;
+            }
+
+            .glass-card.p-8 p {
+                font-size: 0.65rem !important;
+            }
+
+            table {
+                font-size: 0.65rem !important;
+            }
+
+            thead th {
+                padding: 0.5rem !important;
+                font-size: 0.6rem !important;
+            }
+
+            tbody td {
+                padding: 0.5rem !important;
+            }
+
+            button {
+                font-size: 0.65rem !important;
+                padding: 0.4rem 0.6rem !important;
+            }
+
+            /* Hide less important columns on very small screens */
+            th:nth-child(4),
+            td:nth-child(4) {
+                padding: 0.25rem !important;
+            }
+
+            .h-2.bg-white\/5 {
+                height: 0.35rem !important;
+            }
+
+            /* Auth overlay */
+            #auth-overlay .glass-card {
+                width: 95% !important;
+                padding: 1.5rem !important;
+            }
+
+            #pin-input {
+                font-size: 1.5rem !important;
+                padding: 0.75rem !important;
+            }
+        }
+    </style>
+</head>
+<body class="opacity-0 transition-opacity duration-1000" id="admin-body">
+
+    <div id="auth-overlay">
+        <div class="glass-card p-10 rounded-[40px] text-center max-w-sm w-full mx-4 shadow-2xl border-sky-500/20">
+            <h2 class="traditional-title text-2xl mb-6 text-sky-300 uppercase tracking-widest">Admin Access</h2>
+            <p class="text-[10px] uppercase tracking-widest text-slate-400 mb-8 font-bold">ManoVitha Wedding Registry</p>
+            <input type="password" id="pin-input" placeholder="••••" 
+                   class="bg-white/5 border border-white/10 w-full text-center text-3xl tracking-[1em] py-4 rounded-2xl outline-none focus:border-sky-500 mb-6 text-white"
+                   onkeypress="if(event.key==='Enter') checkPin()">
+            <button onclick="checkPin()" class="w-full bg-sky-600 hover:bg-sky-500 py-4 rounded-2xl font-bold tracking-widest uppercase text-xs transition-all active:scale-95 shadow-lg shadow-sky-900/30">
+                Unlock Dashboard
+            </button>
+            <p id="error-msg" class="text-rose-500 text-[10px] mt-4 uppercase hidden font-bold">Incorrect PIN. Try Again.</p>
+        </div>
+    </div>
+
+    <div id="main-content" class="hidden">
+        <header class="beach-bg min-h-[90vh] flex flex-col items-center justify-center text-center px-4">
+            <section class="beach-bg text-center px-4">
+        <p class="uppercase tracking-[0.4em] text-xs mb-6 text-sky-200">From Sand to Snow, Forever We Go</p>
+        <h1 class="text-5xl md:text-7xl mb-2">ManoVitha <br><span class="text-3xl md:text-5xl block mt-4 text-white">Kalyana Vaibhogam</span></h1>
+        <div class="w-24 h-px bg-sky-300 mx-auto my-10 opacity-50"></div>
+            
+         
+
+            <div class="flex space-x-6 justify-center text-center bg-black/40 p-8 rounded-[40px] backdrop-blur-xl border border-white/10 shadow-2xl">
+                <div><span id="days" class="text-4xl font-bold block text-sky-200">00</span><span class="text-[10px] uppercase opacity-60 tracking-widest">Days</span></div>
+                <div class="w-px h-10 bg-white/20 self-center"></div>
+                <div><span id="hours" class="text-4xl font-bold block text-sky-200">00</span><span class="text-[10px] uppercase opacity-60 tracking-widest">Hrs</span></div>
+                <div class="w-px h-10 bg-white/20 self-center"></div>
+                <div><span id="mins" class="text-4xl font-bold block text-sky-200">00</span><span class="text-[10px] uppercase opacity-60 tracking-widest">Mins</span></div>
+            </div>
+        </header>
+
+        <!-- STATISTICS SECTION -->
+        <section class="snow-theme py-20 px-4">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-3xl traditional-title text-sky-200 mb-12 uppercase tracking-widest text-center">Wedding Statistics</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                    <!-- Total Guests Card -->
+                    <div class="glass-card p-8 rounded-3xl text-center shadow-xl">
+                        <div class="text-4xl font-bold text-sky-300 mb-2" id="stat-total-guests">0</div>
+                        <p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Total Guests</p>
+                        <p class="text-[9px] text-slate-500 mt-3">Including additional guests</p>
+                    </div>
+
+                    <!-- RSVP Received Card -->
+                    <div class="glass-card p-8 rounded-3xl text-center shadow-xl">
+                        <div class="text-4xl font-bold text-emerald-400 mb-2" id="stat-rsvp-received">0</div>
+                        <p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">RSVP Received</p>
+                        <p class="text-[9px] text-slate-500 mt-3" id="stat-rsvp-received-pct">0%</p>
+                    </div>
+
+                    <!-- Pending RSVPs Card -->
+                    <div class="glass-card p-8 rounded-3xl text-center shadow-xl">
+                        <div class="text-4xl font-bold text-amber-400 mb-2" id="stat-pending">0</div>
+                        <p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Pending RSVPs</p>
+                        <p class="text-[9px] text-slate-500 mt-3" id="stat-pending-pct">0%</p>
+                    </div>
+
+                    <!-- Declined Card -->
+                    <div class="glass-card p-8 rounded-3xl text-center shadow-xl">
+                        <div class="text-4xl font-bold text-rose-400 mb-2" id="stat-declined">0</div>
+                        <p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Declined</p>
+                        <p class="text-[9px] text-slate-500 mt-3" id="stat-declined-pct">0%</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Dietary Preferences Card -->
+                    <div class="glass-card p-8 rounded-3xl shadow-xl">
+                        <h3 class="text-lg traditional-title text-sky-300 mb-6 uppercase tracking-widest">Dietary Preferences</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Vegetarian</span>
+                                    <span class="text-lg font-bold text-emerald-400" id="stat-veg">0</span>
+                                </div>
+                                <div class="h-2 bg-white/5 rounded-full overflow-hidden">
+                                    <div class="h-full bg-emerald-500" id="veg-bar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Non-Vegetarian</span>
+                                    <span class="text-lg font-bold text-sky-400" id="stat-non-veg">0</span>
+                                </div>
+                                <div class="h-2 bg-white/5 rounded-full overflow-hidden">
+                                    <div class="h-full bg-sky-500" id="non-veg-bar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bar Preferences Card -->
+                    <div class="glass-card p-8 rounded-3xl shadow-xl">
+                        <h3 class="text-lg traditional-title text-sky-300 mb-6 uppercase tracking-widest">Bar Preferences</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Alcoholic Beverages</span>
+                                    <span class="text-lg font-bold text-amber-400" id="stat-alcohol">0</span>
+                                </div>
+                                <div class="h-2 bg-white/5 rounded-full overflow-hidden">
+                                    <div class="h-full bg-amber-500" id="alcohol-bar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Mocktails / Soft Drinks</span>
+                                    <span class="text-lg font-bold text-pink-400" id="stat-mocktail">0</span>
+                                </div>
+                                <div class="h-2 bg-white/5 rounded-full overflow-hidden">
+                                    <div class="h-full bg-pink-500" id="mocktail-bar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <main class="snow-theme py-20 px-4 min-h-screen">
+            <div class="max-w-4xl mx-auto">
+                
+                <div class="glass-card p-10 rounded-[40px] mb-16 shadow-2xl">
+                    <h2 class="text-2xl traditional-title text-sky-300 mb-8 uppercase tracking-widest">Add New Guest</h2>
+                    
+                    <div class="space-y-8">
+                        <div>
+                            <label class="text-[10px] uppercase tracking-[0.3em] text-slate-400 block mb-3 font-bold">Guest Identity</label>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <input type="text" id="addName" placeholder="Full Name" class="bg-white/5 border border-white/10 p-4 rounded-2xl outline-none focus:border-sky-500 text-white w-full">
+                                <input type="text" id="addNickname" placeholder="Nickname (Optional)" class="bg-white/5 border border-white/10 p-4 rounded-2xl outline-none focus:border-sky-500 text-white w-full">
+                            </div>
+                            <p class="text-[9px] text-slate-500 mt-2">Guests can select how many additional people they're bringing when they RSVP</p>
+                        </div>
+
+                        <div>
+                            <label class="text-[10px] uppercase tracking-[0.3em] text-slate-400 block mb-4 font-bold">Event Invitations</label>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                <label class="flex flex-col items-center bg-white/5 p-4 rounded-2xl border border-white/5 hover:bg-white/10 cursor-pointer transition-all">
+                                    <input type="checkbox" id="invCocktail" class="mb-3">
+                                    <span class="text-[9px] uppercase tracking-widest text-white">Cocktail</span>
+                                </label>
+                                <label class="flex flex-col items-center bg-white/5 p-4 rounded-2xl border border-white/5 hover:bg-white/10 cursor-pointer transition-all">
+                                    <input type="checkbox" id="invHaldi" class="mb-3">
+                                    <span class="text-[9px] uppercase tracking-widest text-white">Haldi</span>
+                                </label>
+                                <label class="flex flex-col items-center bg-white/5 p-4 rounded-2xl border border-white/5 hover:bg-white/10 cursor-pointer transition-all">
+                                    <input type="checkbox" id="invPelli" class="mb-3">
+                                    <span class="text-[9px] uppercase tracking-widest text-white leading-tight text-center">Pelli <br> Ceremony</span>
+                                </label>
+                                <label class="flex flex-col items-center bg-white/5 p-4 rounded-2xl border border-white/5 hover:bg-white/10 cursor-pointer transition-all">
+                                    <input type="checkbox" id="invMuhurtham" class="mb-3">
+                                    <span class="text-[9px] uppercase tracking-widest text-white">Muhurtham</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end">
+                            <button onclick="addGuestToAirtable()" class="bg-sky-600 hover:bg-sky-500 py-4 px-8 rounded-2xl font-bold tracking-widest text-white transition-all active:scale-95 shadow-lg shadow-sky-900/40 uppercase text-xs">
+                                Register Guest
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-[40px] overflow-hidden shadow-2xl">
+                    <div class="p-8 border-b border-white/10 flex justify-between items-center bg-white/5">
+                        <h3 class="traditional-title text-xl text-white tracking-widest">Guest Registry</h3>
+                        <div id="tableLoader" class="hidden text-sky-400 text-[10px] uppercase tracking-widest animate-pulse font-bold">Syncing Database...</div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead class="bg-white/5 text-[10px] uppercase tracking-[0.2em] text-slate-500">
+                                <tr>
+                                    <th class="p-6">Name & Nickname</th>
+                                    <th class="p-6">Invited To</th>
+                                    <th class="p-6">Status</th>
+                                    <th class="p-6 text-center">Invite Sent</th>
+                                    <th class="p-6 text-right">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="guestTableBody" class="text-sm">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- DJ SONG REQUESTS SECTION -->
+                <div class="glass-card rounded-[40px] overflow-hidden shadow-2xl mt-16">
+                    <div class="p-8 border-b border-white/10 flex justify-between items-center bg-white/5">
+                        <h3 class="traditional-title text-xl text-white tracking-widest">DJ Song Requests</h3>
+                        <div id="songTableLoader" class="hidden text-sky-400 text-[10px] uppercase tracking-widest animate-pulse font-bold">Loading...</div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead class="bg-white/5 text-[10px] uppercase tracking-[0.2em] text-slate-500">
+                                <tr>
+                                    <th class="p-6">Guest Name</th>
+                                    <th class="p-6">Song Request</th>
+                                </tr>
+                            </thead>
+                            <tbody id="djSongTableBody" class="text-sm">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- DANCE SONG REQUESTS SECTION -->
+                <div class="glass-card rounded-[40px] overflow-hidden shadow-2xl mt-16">
+                    <div class="p-8 border-b border-white/10 flex justify-between items-center bg-white/5">
+                        <h3 class="traditional-title text-xl text-white tracking-widest">Dance Song Requests</h3>
+                        <div id="danceSongTableLoader" class="hidden text-sky-400 text-[10px] uppercase tracking-widest animate-pulse font-bold">Loading...</div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead class="bg-white/5 text-[10px] uppercase tracking-[0.2em] text-slate-500">
+                                <tr>
+                                    <th class="p-6">Guest Name</th>
+                                    <th class="p-6">Dancing Status</th>
+                                    <th class="p-6">Song Request</th>
+                                </tr>
+                            </thead>
+                            <tbody id="danceSongTableBody" class="text-sm">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // SECURITY CONFIG
+        const SECRET_PIN = "2026"; // Change your PIN here
+
+        function checkPin() {
+            const input = document.getElementById('pin-input').value;
+            const error = document.getElementById('error-msg');
+            
+            if (input === SECRET_PIN) {
+                document.getElementById('auth-overlay').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('auth-overlay').style.display = 'none';
+                    document.getElementById('main-content').classList.remove('hidden');
+                    fetchGuestList();
+                }, 500);
+            } else {
+                error.classList.remove('hidden');
+                document.getElementById('pin-input').value = "";
+            }
+        }
+
+        // AIRTABLE CONFIG (MATCHED TO INDEX.HTML)
+        const TOKEN = "patcEmMS5j2Nl38Ns.85b80e89dd31f83109515a5cbda251e48395a7087265fb603b3bafaf97004df0";
+        const BASE_ID = "appBdvXsnpG6RIhfs";
+        const TABLE = "RSVP";
+
+        // COUNTDOWN LOGIC (MAY 3, 2026)
+        const weddingDate = new Date("May 3, 2026 09:15:00").getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const gap = weddingDate - now;
+            document.getElementById('days').innerText = Math.floor(gap / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+            document.getElementById('hours').innerText = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+            document.getElementById('mins').innerText = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+        }, 1000);
+
+        // DATA FETCHING
+        async function fetchGuestList() {
+            const loader = document.getElementById('tableLoader');
+            loader.classList.remove('hidden');
+            try {
+                const res = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${TABLE}?sort[0][field]=Name&sort[0][direction]=asc`, {
+                    headers: { Authorization: `Bearer ${TOKEN}` }
+                });
+                const data = await res.json();
+                renderTable(data.records);
+                updateStatistics();
+            } catch (e) { console.error(e); }
+            loader.classList.add('hidden');
+        }
+
+        function renderTable(records) {
+    const body = document.getElementById('guestTableBody');
+    body.innerHTML = records.map(record => {
+        // Airtable stores data in the .fields object
+        const f = record.fields;
+
+        // 1. Exact Field Name Matching (Case-Sensitive)
+        const guestName = f.Name || "Unknown Name"; 
+        const guestNickname = f.Nickname || "";
+        const rsvpStatus = f.RSVP_Status || "Pending";
+        const maxGuests = f.Max_Guests || 1;
+        const inviteSent = f.Invite_Sent || false;
+        const recordId = record.id;
+
+        // 2. Logic for Event Badges (Matching index.html checkboxes)
+        const events = [];
+        if(f.Invited_Cocktail) events.push('Cocktail');
+        if(f.Invited_Haldi) events.push('Haldi');
+        if(f.Invited_PellikuturuPellikoduku) events.push('Pelli'); // Ensure this matches your column!
+        if(f.Invited_Muhurtham) events.push('Muhurtham');
+
+        return `
+            <tr class="border-b border-white/5 hover:bg-white/[0.02] transition-all">
+                <td class="p-6">
+                    <div class="text-white font-bold">${guestName}</div>
+                    <div class="text-[10px] text-slate-500 uppercase tracking-widest font-bold">
+                        ${guestNickname ? guestNickname : 'No Nickname'} | Max: ${maxGuests}
+                    </div>
+                </td>
+                <td class="p-6">
+                    <div class="flex flex-wrap gap-2">
+                        ${events.length > 0 
+                            ? events.map(e => `<span class="px-2 py-1 bg-sky-500/10 text-sky-400 rounded-md text-[9px] uppercase font-bold border border-sky-500/20">${e}</span>`).join('')
+                            : '<span class="text-[9px] text-slate-600 italic uppercase">No Events Assigned</span>'
+                        }
+                    </div>
+                </td>
+                <td class="p-6">
+                    <span class="text-[10px] uppercase font-bold ${rsvpStatus === 'Confirmed' ? 'text-emerald-400' : 'text-amber-400'}">
+                        ${rsvpStatus}
+                    </span>
+                </td>
+                <td class="p-6 text-center">
+                    <label class="flex justify-center cursor-pointer">
+                        <input type="checkbox" ${inviteSent ? 'checked' : ''} onchange="toggleInviteSent('${recordId}', this.checked)" style="appearance: none; background-color: rgba(255,255,255,0.1); width: 1.5em; height: 1.5em; border: 1px solid rgba(255,255,255,0.2); border-radius: 0.35em; cursor: pointer; display: grid; place-content: center;">
+                    </label>
+                </td>
+                <td class="p-6 text-right">
+                    <button onclick="deleteGuest('${recordId}', '${guestName}')" class="text-rose-400 hover:text-rose-300 transition-colors text-[10px] uppercase tracking-widest font-bold border border-rose-400/30 px-4 py-2 rounded-xl hover:bg-rose-500/10">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        `;
+    }).join('');
+    
+    // Render DJ Song Requests
+    renderDJSongRequests(records);
+    renderDanceSongRequests(records);
+}
+
+        function renderDJSongRequests(records) {
+            const body = document.getElementById('djSongTableBody');
+            const djRequests = records.filter(record => {
+                const f = record.fields;
+                return f.Cocktail_DJ_Song && f.Cocktail_DJ_Song !== "";
+            });
+
+            body.innerHTML = djRequests.map(record => {
+                const f = record.fields;
+                const guestName = f.Name || "Unknown Guest";
+                const songRequest = f.Cocktail_DJ_Song || "—";
+
+                return `
+                    <tr class="border-b border-white/5 hover:bg-white/[0.02] transition-all">
+                        <td class="p-6">
+                            <div class="text-white font-bold">${guestName}</div>
+                        </td>
+                        <td class="p-6">
+                            <span class="text-white text-sm">${songRequest}</span>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            // Show message if no requests
+            if (djRequests.length === 0) {
+                body.innerHTML = `
+                    <tr>
+                        <td colspan="2" class="p-6 text-center">
+                            <span class="text-[9px] text-slate-500 italic uppercase">No DJ song requests yet</span>
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        function renderDanceSongRequests(records) {
+            const body = document.getElementById('danceSongTableBody');
+            const danceRequests = records.filter(record => {
+                const f = record.fields;
+                return f.Cocktail_Dance_Song && f.Cocktail_Dance_Song !== "";
+            });
+
+            body.innerHTML = danceRequests.map(record => {
+                const f = record.fields;
+                const guestName = f.Name || "Unknown Guest";
+                const danceStatus = f.Cocktail_Dance || "Not selected";
+                const songRequest = f.Cocktail_Dance_Song || "—";
+
+                return `
+                    <tr class="border-b border-white/5 hover:bg-white/[0.02] transition-all">
+                        <td class="p-6">
+                            <div class="text-white font-bold">${guestName}</div>
+                        </td>
+                        <td class="p-6">
+                            <span class="text-[10px] uppercase font-bold ${danceStatus === 'Yes' ? 'text-emerald-400' : 'text-amber-400'}">
+                                ${danceStatus}
+                            </span>
+                        </td>
+                        <td class="p-6">
+                            <span class="text-white text-sm">${songRequest}</span>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            // Show message if no requests
+            if (danceRequests.length === 0) {
+                body.innerHTML = `
+                    <tr>
+                        <td colspan="3" class="p-6 text-center">
+                            <span class="text-[9px] text-slate-500 italic uppercase">No dance song requests yet</span>
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        async function addGuestToAirtable() {
+            const name = document.getElementById('addName').value.trim();
+            if(!name) return alert("Guest Name is required.");
+
+            const fields = {
+                "Name": name,
+                "Nickname": document.getElementById('addNickname').value.trim(),
+                "Invited_Cocktail": document.getElementById('invCocktail').checked,
+                "Invited_Haldi": document.getElementById('invHaldi').checked,
+                "Invited_PellikuturuPellikoduku": document.getElementById('invPelli').checked,
+                "Invited_Muhurtham": document.getElementById('invMuhurtham').checked,
+                "Max_Guests": 5,
+                "RSVP_Status": "Pending"
+            };
+
+            try {
+                const res = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${TABLE}`, {
+                    method: "POST",
+                    headers: { "Authorization": `Bearer ${TOKEN}`, "Content-Type": "application/json" },
+                    body: JSON.stringify({ fields })
+                });
+                if(res.ok) {
+                    alert("Guest added successfully!");
+                    fetchGuestList(); // Refresh table and stats
+                    // Clear inputs
+                    document.getElementById('addName').value = "";
+                    document.getElementById('addNickname').value = "";
+                    document.querySelectorAll('input[type="checkbox"]').forEach(c => c.checked = false);
+                }
+            } catch (e) { console.error(e); }
+        }
+
+        async function toggleInviteSent(recordId, checked) {
+            try {
+                const res = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${TABLE}/${recordId}`, {
+                    method: "PATCH",
+                    headers: { "Authorization": `Bearer ${TOKEN}`, "Content-Type": "application/json" },
+                    body: JSON.stringify({ fields: { "Invite_Sent": checked } })
+                });
+                if(!res.ok) {
+                    console.error("Error toggling invite sent:", res.status);
+                    alert("Failed to update invite status");
+                }
+            } catch (e) { 
+                console.error(e); 
+                alert("Error updating invite status");
+            }
+        }
+
+        function deleteGuest(recordId, guestName) {
+            if (confirm(`Are you sure you want to delete ${guestName}? This action cannot be undone.`)) {
+                performDelete(recordId, guestName);
+            }
+        }
+
+        async function performDelete(recordId, guestName) {
+            try {
+                const res = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${TABLE}/${recordId}`, {
+                    method: "DELETE",
+                    headers: { "Authorization": `Bearer ${TOKEN}` }
+                });
+                if(res.ok) {
+                    alert(`${guestName} has been deleted successfully.`);
+                    fetchGuestList(); // Refresh table
+                } else {
+                    console.error("Delete failed:", res.status);
+                    alert("Failed to delete guest entry");
+                }
+            } catch (e) { 
+                console.error(e); 
+                alert("Error deleting guest");
+            }
+        }
+
+        // CALCULATE AND UPDATE STATISTICS
+        async function updateStatistics() {
+            try {
+                const res = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${TABLE}`, {
+                    headers: { Authorization: `Bearer ${TOKEN}` }
+                });
+                const data = await res.json();
+                const records = data.records;
+
+                // Initialize counters
+                let totalGuests = 0;
+                let rsvpReceived = 0;
+                let pending = 0;
+                let declined = 0;
+                let vegCount = 0;
+                let nonVegCount = 0;
+                let alcoholCount = 0;
+                let mocktailCount = 0;
+
+                records.forEach(record => {
+                    const f = record.fields;
+                    const maxGuests = f.Max_Guests || 1;
+
+                    // Count total guests (including additional guests from RSVP)
+                    if (f.Cocktail_RSVP === 'Attending') {
+                        totalGuests += f.Cocktail_Count || maxGuests;
+                    }
+
+                    // Count veg/non-veg
+                    vegCount += f.Cocktail_Veg_Count || 0;
+                    nonVegCount += f.Cocktail_NonVeg_Count || 0;
+
+                    // Count alcohol/mocktail
+                    alcoholCount += f.Cocktail_Alcohol_Count || 0;
+                    mocktailCount += f.Cocktail_Mocktail_Count || 0;
+
+                    // Count RSVP status - check if they responded
+                    if (f.Cocktail_RSVP === 'Attending' || f.Cocktail_RSVP === 'Declined') {
+                        if (f.Cocktail_RSVP === 'Attending') {
+                            rsvpReceived++;
+                        } else {
+                            declined++;
+                        }
+                    } else {
+                        pending++;
+                    }
+                });
+
+                // Calculate percentages
+                const totalInvites = records.length;
+                const rsvpPercent = totalInvites > 0 ? Math.round((rsvpReceived / totalInvites) * 100) : 0;
+                const pendingPercent = totalInvites > 0 ? Math.round((pending / totalInvites) * 100) : 0;
+                const declinedPercent = totalInvites > 0 ? Math.round((declined / totalInvites) * 100) : 0;
+
+                // Update DOM
+                document.getElementById('stat-total-guests').textContent = totalGuests;
+                document.getElementById('stat-rsvp-received').textContent = rsvpReceived;
+                document.getElementById('stat-rsvp-received-pct').textContent = `${rsvpPercent}%`;
+                document.getElementById('stat-pending').textContent = pending;
+                document.getElementById('stat-pending-pct').textContent = `${pendingPercent}%`;
+                document.getElementById('stat-declined').textContent = declined;
+                document.getElementById('stat-declined-pct').textContent = `${declinedPercent}%`;
+
+                // Dietary preferences
+                document.getElementById('stat-veg').textContent = vegCount;
+                document.getElementById('stat-non-veg').textContent = nonVegCount;
+                const totalFood = vegCount + nonVegCount;
+                if (totalFood > 0) {
+                    document.getElementById('veg-bar').style.width = (vegCount / totalFood * 100) + '%';
+                    document.getElementById('non-veg-bar').style.width = (nonVegCount / totalFood * 100) + '%';
+                }
+
+                // Bar preferences
+                document.getElementById('stat-alcohol').textContent = alcoholCount;
+                document.getElementById('stat-mocktail').textContent = mocktailCount;
+                const totalBar = alcoholCount + mocktailCount;
+                if (totalBar > 0) {
+                    document.getElementById('alcohol-bar').style.width = (alcoholCount / totalBar * 100) + '%';
+                    document.getElementById('mocktail-bar').style.width = (mocktailCount / totalBar * 100) + '%';
+                }
+            } catch (e) { console.error('Error updating statistics:', e); }
+        }
+
+        window.onload = () => {
+            document.getElementById('admin-body').classList.remove('opacity-0');
+            updateStatistics();
+            // Refresh stats every 30 seconds
+            setInterval(updateStatistics, 30000);
+        };
+    </script>
+</body>
+</html>
