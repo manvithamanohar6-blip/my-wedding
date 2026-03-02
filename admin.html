@@ -290,6 +290,31 @@
                     </div>
                 </div>
 
+                <!-- Event Attendance Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <!-- Cocktail Party Card -->
+                    <div class="glass-card p-8 rounded-3xl shadow-xl">
+                        <h3 class="text-lg traditional-title text-purple-400 mb-6 uppercase tracking-widest">🍹 Cocktail Party</h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center">
+                                <span class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Attending</span>
+                                <span class="text-lg font-bold text-purple-400" id="stat-cocktail-count">0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Muhurtham Card -->
+                    <div class="glass-card p-8 rounded-3xl shadow-xl">
+                        <h3 class="text-lg traditional-title text-pink-400 mb-6 uppercase tracking-widest">💍 Muhurtham</h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center">
+                                <span class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Attending</span>
+                                <span class="text-lg font-bold text-pink-400" id="stat-muhurtham-count">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- Dietary Preferences Card -->
                     <div class="glass-card p-8 rounded-3xl shadow-xl">
@@ -347,52 +372,20 @@
         <main class="snow-theme py-20 px-4 min-h-screen">
             <div class="max-w-4xl mx-auto">
                 
-                <div class="glass-card p-10 rounded-[40px] mb-16 shadow-2xl">
-                    <h2 class="text-2xl traditional-title text-sky-300 mb-8 uppercase tracking-widest">Add New Guest</h2>
-                    
-                    <div class="space-y-8">
-                        <div>
-                            <label class="text-[10px] uppercase tracking-[0.3em] text-slate-400 block mb-3 font-bold">Guest Identity</label>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <input type="text" id="addName" placeholder="Full Name" class="bg-white/5 border border-white/10 p-4 rounded-2xl outline-none focus:border-sky-500 text-white w-full">
-                                <input type="text" id="addNickname" placeholder="Nickname (Optional)" class="bg-white/5 border border-white/10 p-4 rounded-2xl outline-none focus:border-sky-500 text-white w-full">
-                            </div>
-                            <p class="text-[9px] text-slate-500 mt-2">Guests can select how many additional people they're bringing when they RSVP</p>
-                        </div>
-
-                        <div>
-                            <label class="text-[10px] uppercase tracking-[0.3em] text-slate-400 block mb-4 font-bold">Event Invitations</label>
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                <label class="flex flex-col items-center bg-white/5 p-4 rounded-2xl border border-white/5 hover:bg-white/10 cursor-pointer transition-all">
-                                    <input type="checkbox" id="invCocktail" class="mb-3">
-                                    <span class="text-[9px] uppercase tracking-widest text-white">Cocktail</span>
-                                </label>
-                                <label class="flex flex-col items-center bg-white/5 p-4 rounded-2xl border border-white/5 hover:bg-white/10 cursor-pointer transition-all">
-                                    <input type="checkbox" id="invHaldi" class="mb-3">
-                                    <span class="text-[9px] uppercase tracking-widest text-white">Haldi</span>
-                                </label>
-                                <label class="flex flex-col items-center bg-white/5 p-4 rounded-2xl border border-white/5 hover:bg-white/10 cursor-pointer transition-all">
-                                    <input type="checkbox" id="invPelli" class="mb-3">
-                                    <span class="text-[9px] uppercase tracking-widest text-white leading-tight text-center">Pelli <br> Ceremony</span>
-                                </label>
-                                <label class="flex flex-col items-center bg-white/5 p-4 rounded-2xl border border-white/5 hover:bg-white/10 cursor-pointer transition-all">
-                                    <input type="checkbox" id="invMuhurtham" class="mb-3">
-                                    <span class="text-[9px] uppercase tracking-widest text-white">Muhurtham</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="flex justify-end">
-                            <button onclick="addGuestToAirtable()" class="bg-sky-600 hover:bg-sky-500 py-4 px-8 rounded-2xl font-bold tracking-widest text-white transition-all active:scale-95 shadow-lg shadow-sky-900/40 uppercase text-xs">
-                                Register Guest
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="glass-card rounded-[40px] overflow-hidden shadow-2xl">
-                    <div class="p-8 border-b border-white/10 flex justify-between items-center bg-white/5">
-                        <h3 class="traditional-title text-xl text-white tracking-widest">Guest Registry</h3>
+                    <div class="p-8 border-b border-white/10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white/5">
+                        <div class="flex items-center gap-4 flex-wrap">
+                            <h3 class="traditional-title text-xl text-white tracking-widest">Guest Registry</h3>
+                            <select id="filterDropdown" onchange="applyFilter()" class="bg-white/5 border border-white/10 p-2 rounded-lg text-white text-[10px] outline-none focus:border-sky-500 cursor-pointer">
+                                <option value="all">All Guests</option>
+                                <option value="cocktail-attending">🍹 Cocktail - Attending</option>
+                                <option value="cocktail-declined">🍹 Cocktail - Declined</option>
+                                <option value="muhurtham-attending">💍 Muhurtham - Attending</option>
+                                <option value="muhurtham-declined">💍 Muhurtham - Declined</option>
+                                <option value="pending">⏳ Pending RSVP</option>
+                            </select>
+                            <input type="text" id="guestSearchInput" placeholder="Search by name..." onkeyup="applyFilter()" class="bg-white/5 border border-white/10 p-2 rounded-lg text-white text-[10px] outline-none focus:border-sky-500 w-full md:w-40">
+                        </div>
                         <div id="tableLoader" class="hidden text-sky-400 text-[10px] uppercase tracking-widest animate-pulse font-bold">Syncing Database...</div>
                     </div>
                     <div class="overflow-x-auto">
@@ -400,7 +393,7 @@
                             <thead class="bg-white/5 text-[10px] uppercase tracking-[0.2em] text-slate-500">
                                 <tr>
                                     <th class="p-6">Name & Nickname</th>
-                                    <th class="p-6">Invited To</th>
+                                    <th class="p-6">Attending To</th>
                                     <th class="p-6">Status</th>
                                     <th class="p-6 text-center">Invite Sent</th>
                                     <th class="p-6 text-right">Action</th>
@@ -509,27 +502,30 @@
 
         function renderTable(records) {
     const body = document.getElementById('guestTableBody');
-    body.innerHTML = records.map(record => {
-        // Airtable stores data in the .fields object
+    // Store all records for filtering
+    window.allGuestRecords = records;
+    
+    const filtered = applyFilter();
+    
+    body.innerHTML = filtered.map(record => {
         const f = record.fields;
-
-        // 1. Exact Field Name Matching (Case-Sensitive)
         const guestName = f.Name || "Unknown Name"; 
         const guestNickname = f.Nickname || "";
-        const rsvpStatus = f.RSVP_Status || "Pending";
         const maxGuests = f.Max_Guests || 1;
         const inviteSent = f.Invite_Sent || false;
         const recordId = record.id;
 
-        // 2. Logic for Event Badges (Matching index.html checkboxes)
-        const events = [];
-        if(f.Invited_Cocktail) events.push('Cocktail');
-        if(f.Invited_Haldi) events.push('Haldi');
-        if(f.Invited_PellikuturuPellikoduku) events.push('Pelli'); // Ensure this matches your column!
-        if(f.Invited_Muhurtham) events.push('Muhurtham');
+        // Show which events they're attending (RSVP status)
+        const attendingEvents = [];
+        if (f.Cocktail_RSVP === "Attending") attendingEvents.push('🍹 Cocktail');
+        if (f.Muhurtham_RSVP === "Attending") attendingEvents.push('💍 Muhurtham');
+        
+        // For status, show primary event status
+        const primaryStatus = f.Cocktail_RSVP || f.Muhurtham_RSVP || "Pending";
+        const statusColor = primaryStatus === 'Attending' ? 'text-emerald-400' : primaryStatus === 'Declined' ? 'text-rose-400' : 'text-amber-400';
 
         return `
-            <tr class="border-b border-white/5 hover:bg-white/[0.02] transition-all">
+            <tr class="border-b border-white/5 hover:bg-white/[0.02] transition-all" data-filter="${getFilterKey(f)}">
                 <td class="p-6">
                     <div class="text-white font-bold">${guestName}</div>
                     <div class="text-[10px] text-slate-500 uppercase tracking-widest font-bold">
@@ -538,15 +534,15 @@
                 </td>
                 <td class="p-6">
                     <div class="flex flex-wrap gap-2">
-                        ${events.length > 0 
-                            ? events.map(e => `<span class="px-2 py-1 bg-sky-500/10 text-sky-400 rounded-md text-[9px] uppercase font-bold border border-sky-500/20">${e}</span>`).join('')
-                            : '<span class="text-[9px] text-slate-600 italic uppercase">No Events Assigned</span>'
+                        ${attendingEvents.length > 0 
+                            ? attendingEvents.map(e => `<span class="px-2 py-1 bg-emerald-500/10 text-emerald-400 rounded-md text-[9px] uppercase font-bold border border-emerald-500/20">${e}</span>`).join('')
+                            : '<span class="text-[9px] text-slate-600 italic uppercase">—</span>'
                         }
                     </div>
                 </td>
                 <td class="p-6">
-                    <span class="text-[10px] uppercase font-bold ${rsvpStatus === 'Confirmed' ? 'text-emerald-400' : 'text-amber-400'}">
-                        ${rsvpStatus}
+                    <span class="text-[10px] uppercase font-bold ${statusColor}">
+                        ${primaryStatus}
                     </span>
                 </td>
                 <td class="p-6 text-center">
@@ -566,6 +562,101 @@
     // Render DJ Song Requests
     renderDJSongRequests(records);
     renderDanceSongRequests(records);
+}
+
+function getFilterKey(f) {
+    if (f.Cocktail_RSVP === 'Attending') return 'cocktail-attending';
+    if (f.Cocktail_RSVP === 'Declined') return 'cocktail-declined';
+    if (f.Muhurtham_RSVP === 'Attending') return 'muhurtham-attending';
+    if (f.Muhurtham_RSVP === 'Declined') return 'muhurtham-declined';
+    return 'pending';
+}
+
+function applyFilter() {
+    const filterValue = document.getElementById('filterDropdown')?.value || 'all';
+    const searchValue = document.getElementById('guestSearchInput')?.value.toLowerCase() || '';
+    
+    if (!window.allGuestRecords) return [];
+    
+    let filtered = window.allGuestRecords;
+    
+    // Apply filter dropdown
+    if (filterValue !== 'all') {
+        filtered = filtered.filter(record => {
+            const f = record.fields;
+            const key = getFilterKey(f);
+            return key === filterValue;
+        });
+    }
+    
+    // Apply search filter
+    if (searchValue) {
+        filtered = filtered.filter(record => {
+            const f = record.fields;
+            const name = (f.Name || '').toLowerCase();
+            const nickname = (f.Nickname || '').toLowerCase();
+            return name.includes(searchValue) || nickname.includes(searchValue);
+        });
+    }
+    
+    // Sort alphabetically
+    filtered.sort((a, b) => (a.fields.Name || '').localeCompare(b.fields.Name || ''));
+    
+    // Update table display
+    const body = document.getElementById('guestTableBody');
+    body.innerHTML = filtered.map(record => {
+        const f = record.fields;
+        const guestName = f.Name || "Unknown Name"; 
+        const guestNickname = f.Nickname || "";
+        const maxGuests = f.Max_Guests || 1;
+        const inviteSent = f.Invite_Sent || false;
+        const recordId = record.id;
+
+        // Show which events they're attending (RSVP status)
+        const attendingEvents = [];
+        if (f.Cocktail_RSVP === "Attending") attendingEvents.push('🍹 Cocktail');
+        if (f.Muhurtham_RSVP === "Attending") attendingEvents.push('💍 Muhurtham');
+        
+        // For status, show primary event status
+        const primaryStatus = f.Cocktail_RSVP || f.Muhurtham_RSVP || "Pending";
+        const statusColor = primaryStatus === 'Attending' ? 'text-emerald-400' : primaryStatus === 'Declined' ? 'text-rose-400' : 'text-amber-400';
+
+        return `
+            <tr class="border-b border-white/5 hover:bg-white/[0.02] transition-all" data-filter="${getFilterKey(f)}">
+                <td class="p-6">
+                    <div class="text-white font-bold">${guestName}</div>
+                    <div class="text-[10px] text-slate-500 uppercase tracking-widest font-bold">
+                        ${guestNickname ? guestNickname : 'No Nickname'} | Max: ${maxGuests}
+                    </div>
+                </td>
+                <td class="p-6">
+                    <div class="flex flex-wrap gap-2">
+                        ${attendingEvents.length > 0 
+                            ? attendingEvents.map(e => `<span class="px-2 py-1 bg-emerald-500/10 text-emerald-400 rounded-md text-[9px] uppercase font-bold border border-emerald-500/20">${e}</span>`).join('')
+                            : '<span class="text-[9px] text-slate-600 italic uppercase">—</span>'
+                        }
+                    </div>
+                </td>
+                <td class="p-6">
+                    <span class="text-[10px] uppercase font-bold ${statusColor}">
+                        ${primaryStatus}
+                    </span>
+                </td>
+                <td class="p-6 text-center">
+                    <label class="flex justify-center cursor-pointer">
+                        <input type="checkbox" ${inviteSent ? 'checked' : ''} onchange="toggleInviteSent('${recordId}', this.checked)" style="appearance: none; background-color: rgba(255,255,255,0.1); width: 1.5em; height: 1.5em; border: 1px solid rgba(255,255,255,0.2); border-radius: 0.35em; cursor: pointer; display: grid; place-content: center;">
+                    </label>
+                </td>
+                <td class="p-6 text-right">
+                    <button onclick="deleteGuest('${recordId}', '${guestName}')" class="text-rose-400 hover:text-rose-300 transition-colors text-[10px] uppercase tracking-widest font-bold border border-rose-400/30 px-4 py-2 rounded-xl hover:bg-rose-500/10">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        `;
+    }).join('');
+    
+    return filtered;
 }
 
         function renderDJSongRequests(records) {
@@ -646,38 +737,6 @@
             }
         }
 
-        async function addGuestToAirtable() {
-            const name = document.getElementById('addName').value.trim();
-            if(!name) return alert("Guest Name is required.");
-
-            const fields = {
-                "Name": name,
-                "Nickname": document.getElementById('addNickname').value.trim(),
-                "Invited_Cocktail": document.getElementById('invCocktail').checked,
-                "Invited_Haldi": document.getElementById('invHaldi').checked,
-                "Invited_PellikuturuPellikoduku": document.getElementById('invPelli').checked,
-                "Invited_Muhurtham": document.getElementById('invMuhurtham').checked,
-                "Max_Guests": 5,
-                "RSVP_Status": "Pending"
-            };
-
-            try {
-                const res = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${TABLE}`, {
-                    method: "POST",
-                    headers: { "Authorization": `Bearer ${TOKEN}`, "Content-Type": "application/json" },
-                    body: JSON.stringify({ fields })
-                });
-                if(res.ok) {
-                    alert("Guest added successfully!");
-                    fetchGuestList(); // Refresh table and stats
-                    // Clear inputs
-                    document.getElementById('addName').value = "";
-                    document.getElementById('addNickname').value = "";
-                    document.querySelectorAll('input[type="checkbox"]').forEach(c => c.checked = false);
-                }
-            } catch (e) { console.error(e); }
-        }
-
         async function toggleInviteSent(recordId, checked) {
             try {
                 const res = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${TABLE}/${recordId}`, {
@@ -738,6 +797,8 @@
                 let nonVegCount = 0;
                 let alcoholCount = 0;
                 let mocktailCount = 0;
+                let cocktailCount = 0;
+                let muhurthamCount = 0;
 
                 records.forEach(record => {
                     const f = record.fields;
@@ -746,6 +807,12 @@
                     // Count total guests (including additional guests from RSVP)
                     if (f.Cocktail_RSVP === 'Attending') {
                         totalGuests += f.Cocktail_Count || maxGuests;
+                        cocktailCount += f.Cocktail_Count || maxGuests;
+                    }
+
+                    // Count Muhurtham attendees
+                    if (f.Muhurtham_RSVP === 'Attending') {
+                        muhurthamCount += f.Muhurtham_Count || maxGuests;
                     }
 
                     // Count veg/non-veg
@@ -782,6 +849,10 @@
                 document.getElementById('stat-pending-pct').textContent = `${pendingPercent}%`;
                 document.getElementById('stat-declined').textContent = declined;
                 document.getElementById('stat-declined-pct').textContent = `${declinedPercent}%`;
+
+                // Event specific counts
+                document.getElementById('stat-cocktail-count').textContent = cocktailCount;
+                document.getElementById('stat-muhurtham-count').textContent = muhurthamCount;
 
                 // Dietary preferences
                 document.getElementById('stat-veg').textContent = vegCount;
